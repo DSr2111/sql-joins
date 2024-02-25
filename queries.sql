@@ -12,7 +12,11 @@ ORDER BY first_name;
 
 --q3--
 SELECT first_name, last_name,
-WHERE COUNT(vehicles) > 1
-AVG(price) > 10000
-ORDER BY first_name DESC
+ROUND(AVG(price)) AS average_price,
+COUNT(owner_id)
+FROM owners AS o 
+JOIN vehicles ON o.id = v.owner_id
+GROUP BY (first_name, last_name)
+HAVING COUNT(owner_id) > 1 AND ROUND(AVG(price)) > 10000
+ORDER BY first_name DESC;
 
